@@ -118,6 +118,15 @@ public class BasicStatement {
     }
 
     private static Connection getConnection() throws SQLException {
+        /*
+        JDBC 4.0 之後不需要用 Class.forName 了，用 SPI 機制解決了
+        DriverManager 靜態塊有個 loadInitialDrivers 方法，裡面有 ServiceLoader
+         */
+//        try {
+//            Class.forName("com.mysql.cj.jdbc.Driver");
+//        } catch (ClassNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
         return DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/my_db", "root", "123456");
     }
